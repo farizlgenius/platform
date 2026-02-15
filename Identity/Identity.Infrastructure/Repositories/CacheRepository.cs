@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Identity.Infrastructure.Services
+namespace Identity.Infrastructure.Repositories
 {
-    public class RedisService : IRedisService
+    public class CacheRepository : ICache
     {
         private readonly IDatabase _db;
 
-        public RedisService(IConfiguration config)
+        public CacheRepository(IConfiguration config)
         {
             var redis = ConnectionMultiplexer.Connect(
             config["Redis:Connection"]!);

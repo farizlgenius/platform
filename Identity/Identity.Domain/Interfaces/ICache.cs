@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Identity.Domain.Interfaces
 {
-    public interface IRedisService
+    public interface ICache
     {
         Task SetAsync(string key, string value, TimeSpan expiry);
         Task<string?> GetAsync(string key);
