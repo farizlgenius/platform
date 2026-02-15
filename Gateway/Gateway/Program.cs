@@ -13,44 +13,63 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+
+        // ==========================
+        // Authentication
+        // ==========================
+
+        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.Authority = jwtSettings["Authority"];
+                options.Audience = jwtSettings["Audience"];
+                options.RequireHttpsMetadata = false;
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateAudience = true,
+                    ValidateIssuer = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true
+                };
+            });
+
         builder.Host.UseSerilog((ctx, lc) =>
         {
             lc.WriteTo.Console();
         });
 
-        builder.Services
-            .AddReverseProxy()
-            .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
-
-        builder.Services
-            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
+        // ==========================
+        // Authorization Policies
+        // ==========================
+        builder.Services.AddAuthorization(options =>
+        {
+            // Used for internal users
+            options.AddPolicy("UserPolicy", policy =>
             {
-                options.RequireHttpsMetadata = false;
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = "DevicePlatform",
-                    ValidAudience = "DevicePlatform",
-                    IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes("SUPER_SECRET_KEY_12345"))
-                };
+                policy.RequireAuthenticatedUser();
+                policy.RequireClaim("role");
             });
 
-        // Add services to the container.
-        builder.Services.AddAuthorization();
-
-        builder.Services.AddRateLimiter(options =>
+            // Used for integration (OAuth client credentials)
+            options.AddPolicy("IntegrationPolicy", policy =>
             {
-                options.AddFixedWindowLimiter("fixed", config =>
-                {
-                    config.Window = TimeSpan.FromSeconds(10);
-                    config.PermitLimit = 100;
-                });
+                policy.RequireAuthenticatedUser();
+                policy.RequireClaim("scope");
             });
+        });
+
+
+
+        // ==========================
+        // YARP Reverse Proxy
+        // ==========================
+
+        builder.Services
+           .AddReverseProxy()
+           .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+
 
         builder.Services.AddCors(opt =>
         {
@@ -67,6 +86,22 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
+        // Add services to the container.
+        builder.Services.AddAuthorization();
+
+        // ==========================
+        // Rate Limit Policy
+        // ==========================
+
+        builder.Services.AddRateLimiter(options =>
+        {
+            options.AddFixedWindowLimiter("fixed", config =>
+            {
+                config.Window = TimeSpan.FromSeconds(10);
+                config.PermitLimit = 100;
+            });
+        });
 
         var app = builder.Build();
 
