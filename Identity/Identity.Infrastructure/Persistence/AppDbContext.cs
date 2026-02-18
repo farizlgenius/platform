@@ -18,12 +18,14 @@ namespace Identity.Infrastructure.Persistence
         public DbSet<RefreshTokenAudit> refresh_token { get; set; }
         public DbSet<WeakPassword> weak_password { get; set; }
         public DbSet<PasswordRule> password_rule { get; set; }
+        public DbSet<OperatorLocation> operator_locations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             builder.UseOpenIddict();
+
 
             builder.Entity<MasterFeature>()
            .HasData(
@@ -52,17 +54,51 @@ namespace Identity.Infrastructure.Persistence
 
            );
 
-
+            builder.Entity<Operator>()
+                .HasMany(x => x.operator_locations)
+                .WithOne(x => x.operators)
+                .HasForeignKey(x => x.operator_id);
 
             builder.Entity<Operator>()
                 .HasData(
-                    new Operator { id = 1,  userid = "1", username = "admin", password = "2439iBIqejYGcodz6j0vGvyeI25eOrjMX3QtIhgVyo0M4YYmWbS+NmGwo0LLByUY", email = "support@honorsupplying.com", title = "Mr.", firstname = "Administrator", middlename = "", lastname = "Platform", phone = "", image = "", is_active = true,location_id=0,role_id=1 }
+                    new Operator { id = 1,  userid = "1", username = "admin", password = "2439iBIqejYGcodz6j0vGvyeI25eOrjMX3QtIhgVyo0M4YYmWbS+NmGwo0LLByUY", email = "support@honorsupplying.com", title = "Mr.", firstname = "Administrator", middlename = "", lastname = "Platform", phone = "", image = "", is_active = true,role_id=1 }
+                );
+
+            builder.Entity<OperatorLocation>()
+                .HasData(
+                new OperatorLocation { id=1,location_id=1,operator_id=1 }
                 );
 
             builder.Entity<Role>()
             .HasData(
-                new Role { id = 1, name = "Administrator", location_id = 0 }
+                new Role { id = 1, name = "Administrator", location_id = 1 }
             );
+
+            builder.Entity<Feature>()
+                .HasData(
+                new Feature { id=1,name="Dashboard",path="/",is_action=true,is_allow=true,is_active=true,is_create=true,is_delete=true,is_modify=true,role_id=1 },
+                new Feature { id = 2, name = "Events", path = "/event", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 3, name = "Location", path = "/location", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 4, name = "Alerts", path = "/alert", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 5, name = "Operator", path = "/operator", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 6, name = "Role", path = "/role", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 7, name = "Hardware", path = "/hardware", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 8, name = "Control Point", path = "/control", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 9, name = "Monitor Point", path = "/monitor", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 10, name = "Monitor Group", path = "/monitorgroup", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 11, name = "Door", path = "/door", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 12, name = "User", path = "/user", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 13, name = "Access Level", path = "/level", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 14, name = "Access Area", path = "/area", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 15, name = "Timezone", path = "/timezone", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 16, name = "Holiday", path = "/holiday", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 17, name = "Interval", path = "/interval", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 18, name = "Trigger", path = "/trigger", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 19, name = "Procedure", path = "/procedure", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 20, name = "Reports", path = "/report", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 21, name = "Settings", path = "/setting", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 22, name = "Maps", path = "/map", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 }
+                );
 
             builder.Entity<PasswordRule>()
             .HasData(

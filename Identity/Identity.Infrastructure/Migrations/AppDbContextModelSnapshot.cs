@@ -51,9 +51,6 @@ namespace Identity.Infrastructure.Migrations
                     b.Property<bool>("is_modify")
                         .HasColumnType("boolean");
 
-                    b.Property<long>("location_id")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -73,6 +70,338 @@ namespace Identity.Infrastructure.Migrations
                     b.HasIndex("role_id");
 
                     b.ToTable("features");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            created_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            is_action = true,
+                            is_active = true,
+                            is_allow = true,
+                            is_create = true,
+                            is_delete = true,
+                            is_modify = true,
+                            name = "Dashboard",
+                            path = "/",
+                            role_id = 1,
+                            updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            id = 2,
+                            created_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            is_action = true,
+                            is_active = true,
+                            is_allow = true,
+                            is_create = true,
+                            is_delete = true,
+                            is_modify = true,
+                            name = "Events",
+                            path = "/event",
+                            role_id = 1,
+                            updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            id = 3,
+                            created_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            is_action = true,
+                            is_active = true,
+                            is_allow = true,
+                            is_create = true,
+                            is_delete = true,
+                            is_modify = true,
+                            name = "Location",
+                            path = "/location",
+                            role_id = 1,
+                            updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            id = 4,
+                            created_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            is_action = true,
+                            is_active = true,
+                            is_allow = true,
+                            is_create = true,
+                            is_delete = true,
+                            is_modify = true,
+                            name = "Alerts",
+                            path = "/alert",
+                            role_id = 1,
+                            updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            id = 5,
+                            created_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            is_action = true,
+                            is_active = true,
+                            is_allow = true,
+                            is_create = true,
+                            is_delete = true,
+                            is_modify = true,
+                            name = "Operator",
+                            path = "/operator",
+                            role_id = 1,
+                            updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            id = 6,
+                            created_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            is_action = true,
+                            is_active = true,
+                            is_allow = true,
+                            is_create = true,
+                            is_delete = true,
+                            is_modify = true,
+                            name = "Role",
+                            path = "/role",
+                            role_id = 1,
+                            updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            id = 7,
+                            created_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            is_action = true,
+                            is_active = true,
+                            is_allow = true,
+                            is_create = true,
+                            is_delete = true,
+                            is_modify = true,
+                            name = "Hardware",
+                            path = "/hardware",
+                            role_id = 1,
+                            updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            id = 8,
+                            created_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            is_action = true,
+                            is_active = true,
+                            is_allow = true,
+                            is_create = true,
+                            is_delete = true,
+                            is_modify = true,
+                            name = "Control Point",
+                            path = "/control",
+                            role_id = 1,
+                            updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            id = 9,
+                            created_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            is_action = true,
+                            is_active = true,
+                            is_allow = true,
+                            is_create = true,
+                            is_delete = true,
+                            is_modify = true,
+                            name = "Monitor Point",
+                            path = "/monitor",
+                            role_id = 1,
+                            updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            id = 10,
+                            created_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            is_action = true,
+                            is_active = true,
+                            is_allow = true,
+                            is_create = true,
+                            is_delete = true,
+                            is_modify = true,
+                            name = "Monitor Group",
+                            path = "/monitorgroup",
+                            role_id = 1,
+                            updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            id = 11,
+                            created_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            is_action = true,
+                            is_active = true,
+                            is_allow = true,
+                            is_create = true,
+                            is_delete = true,
+                            is_modify = true,
+                            name = "Door",
+                            path = "/door",
+                            role_id = 1,
+                            updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            id = 12,
+                            created_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            is_action = true,
+                            is_active = true,
+                            is_allow = true,
+                            is_create = true,
+                            is_delete = true,
+                            is_modify = true,
+                            name = "User",
+                            path = "/user",
+                            role_id = 1,
+                            updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            id = 13,
+                            created_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            is_action = true,
+                            is_active = true,
+                            is_allow = true,
+                            is_create = true,
+                            is_delete = true,
+                            is_modify = true,
+                            name = "Access Level",
+                            path = "/level",
+                            role_id = 1,
+                            updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            id = 14,
+                            created_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            is_action = true,
+                            is_active = true,
+                            is_allow = true,
+                            is_create = true,
+                            is_delete = true,
+                            is_modify = true,
+                            name = "Access Area",
+                            path = "/area",
+                            role_id = 1,
+                            updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            id = 15,
+                            created_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            is_action = true,
+                            is_active = true,
+                            is_allow = true,
+                            is_create = true,
+                            is_delete = true,
+                            is_modify = true,
+                            name = "Timezone",
+                            path = "/timezone",
+                            role_id = 1,
+                            updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            id = 16,
+                            created_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            is_action = true,
+                            is_active = true,
+                            is_allow = true,
+                            is_create = true,
+                            is_delete = true,
+                            is_modify = true,
+                            name = "Holiday",
+                            path = "/holiday",
+                            role_id = 1,
+                            updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            id = 17,
+                            created_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            is_action = true,
+                            is_active = true,
+                            is_allow = true,
+                            is_create = true,
+                            is_delete = true,
+                            is_modify = true,
+                            name = "Interval",
+                            path = "/interval",
+                            role_id = 1,
+                            updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            id = 18,
+                            created_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            is_action = true,
+                            is_active = true,
+                            is_allow = true,
+                            is_create = true,
+                            is_delete = true,
+                            is_modify = true,
+                            name = "Trigger",
+                            path = "/trigger",
+                            role_id = 1,
+                            updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            id = 19,
+                            created_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            is_action = true,
+                            is_active = true,
+                            is_allow = true,
+                            is_create = true,
+                            is_delete = true,
+                            is_modify = true,
+                            name = "Procedure",
+                            path = "/procedure",
+                            role_id = 1,
+                            updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            id = 20,
+                            created_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            is_action = true,
+                            is_active = true,
+                            is_allow = true,
+                            is_create = true,
+                            is_delete = true,
+                            is_modify = true,
+                            name = "Reports",
+                            path = "/report",
+                            role_id = 1,
+                            updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            id = 21,
+                            created_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            is_action = true,
+                            is_active = true,
+                            is_allow = true,
+                            is_create = true,
+                            is_delete = true,
+                            is_modify = true,
+                            name = "Settings",
+                            path = "/setting",
+                            role_id = 1,
+                            updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            id = 22,
+                            created_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            is_action = true,
+                            is_active = true,
+                            is_allow = true,
+                            is_create = true,
+                            is_delete = true,
+                            is_modify = true,
+                            name = "Maps",
+                            path = "/map",
+                            role_id = 1,
+                            updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Identity.Infrastructure.Persistence.Entities.MasterFeature", b =>
@@ -111,222 +440,222 @@ namespace Identity.Infrastructure.Migrations
                         new
                         {
                             id = 1,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9357),
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3254),
                             is_active = true,
                             location_id = 0L,
                             name = "Dashboard",
                             path = "/",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9359)
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3256)
                         },
                         new
                         {
                             id = 2,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9362),
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3259),
                             is_active = true,
                             location_id = 0L,
                             name = "Events",
                             path = "/event",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9362)
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3259)
                         },
                         new
                         {
                             id = 3,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9364),
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3260),
                             is_active = true,
                             location_id = 0L,
                             name = "Location",
                             path = "/location",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9364)
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3260)
                         },
                         new
                         {
                             id = 4,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9364),
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3261),
                             is_active = true,
                             location_id = 0L,
                             name = "Alerts",
                             path = "/alert",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9365)
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3261)
                         },
                         new
                         {
                             id = 5,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9365),
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3262),
                             is_active = true,
                             location_id = 0L,
                             name = "Operator",
                             path = "/operator",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9366)
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3262)
                         },
                         new
                         {
                             id = 6,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9366),
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3263),
                             is_active = true,
                             location_id = 0L,
                             name = "Role",
                             path = "/role",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9367)
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3263)
                         },
                         new
                         {
                             id = 7,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9367),
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3264),
                             is_active = true,
                             location_id = 0L,
                             name = "Hardware",
                             path = "/hardware",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9367)
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3264)
                         },
                         new
                         {
                             id = 8,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9368),
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3265),
                             is_active = true,
                             location_id = 0L,
                             name = "Control Point",
                             path = "/control",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9368)
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3265)
                         },
                         new
                         {
                             id = 9,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9369),
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3266),
                             is_active = true,
                             location_id = 0L,
                             name = "Monitor Point",
                             path = "/monitor",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9369)
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3266)
                         },
                         new
                         {
                             id = 10,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9370),
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3267),
                             is_active = true,
                             location_id = 0L,
                             name = "Monitor Group",
                             path = "/monitorgroup",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9370)
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3267)
                         },
                         new
                         {
                             id = 11,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9371),
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3268),
                             is_active = true,
                             location_id = 0L,
                             name = "Door",
                             path = "/door",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9371)
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3268)
                         },
                         new
                         {
                             id = 12,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9372),
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3269),
                             is_active = true,
                             location_id = 0L,
                             name = "User",
                             path = "/user",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9372)
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3269)
                         },
                         new
                         {
                             id = 13,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9373),
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3270),
                             is_active = true,
                             location_id = 0L,
                             name = "Access Level",
                             path = "/level",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9373)
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3270)
                         },
                         new
                         {
                             id = 14,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9374),
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3270),
                             is_active = true,
                             location_id = 0L,
                             name = "Access Area",
                             path = "/area",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9374)
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3271)
                         },
                         new
                         {
                             id = 15,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9375),
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3271),
                             is_active = true,
                             location_id = 0L,
                             name = "Timezone",
                             path = "/timezone",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9375)
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3272)
                         },
                         new
                         {
                             id = 16,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9375),
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3272),
                             is_active = true,
                             location_id = 0L,
                             name = "Holiday",
                             path = "/holiday",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9376)
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3272)
                         },
                         new
                         {
                             id = 17,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9376),
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3273),
                             is_active = true,
                             location_id = 0L,
                             name = "Interval",
                             path = "/interval",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9377)
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3273)
                         },
                         new
                         {
                             id = 18,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9377),
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3274),
                             is_active = true,
                             location_id = 0L,
                             name = "Trigger",
                             path = "/trigger",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9378)
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3274)
                         },
                         new
                         {
                             id = 19,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9379),
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3275),
                             is_active = true,
                             location_id = 0L,
                             name = "Procedure",
                             path = "/procedure",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9379)
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3275)
                         },
                         new
                         {
                             id = 20,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9380),
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3276),
                             is_active = true,
                             location_id = 0L,
                             name = "Reports",
                             path = "/report",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9380)
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3276)
                         },
                         new
                         {
                             id = 21,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9381),
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3277),
                             is_active = true,
                             location_id = 0L,
                             name = "Settings",
                             path = "/setting",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9381)
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3277)
                         },
                         new
                         {
                             id = 22,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9382),
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3278),
                             is_active = true,
                             location_id = 0L,
                             name = "Maps",
                             path = "/map",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9382)
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3278)
                         });
                 });
 
@@ -359,9 +688,6 @@ namespace Identity.Infrastructure.Migrations
                     b.Property<string>("lastname")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<long>("location_id")
-                        .HasColumnType("bigint");
 
                     b.Property<string>("middlename")
                         .IsRequired()
@@ -403,21 +729,57 @@ namespace Identity.Infrastructure.Migrations
                         new
                         {
                             id = 1,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9496),
+                            created_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             email = "support@honorsupplying.com",
                             firstname = "Administrator",
                             image = "",
                             is_active = true,
                             lastname = "Platform",
-                            location_id = 0L,
                             middlename = "",
                             password = "2439iBIqejYGcodz6j0vGvyeI25eOrjMX3QtIhgVyo0M4YYmWbS+NmGwo0LLByUY",
                             phone = "",
                             role_id = 1,
                             title = "Mr.",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9496),
+                            updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             userid = "1",
                             username = "admin"
+                        });
+                });
+
+            modelBuilder.Entity("Identity.Infrastructure.Persistence.Entities.OperatorLocation", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<DateTime>("created_date")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("location_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("operator_id")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("updated_date")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("operator_id");
+
+                    b.ToTable("operator_locations");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(5269),
+                            location_id = 1,
+                            operator_id = 1,
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(5269)
                         });
                 });
 
@@ -533,11 +895,11 @@ namespace Identity.Infrastructure.Migrations
                         new
                         {
                             id = 1,
-                            created_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9538),
+                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(5287),
                             is_active = true,
-                            location_id = 0L,
+                            location_id = 1L,
                             name = "Administrator",
-                            updated_date = new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9538)
+                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(5287)
                         });
                 });
 
@@ -819,6 +1181,17 @@ namespace Identity.Infrastructure.Migrations
                     b.Navigation("role");
                 });
 
+            modelBuilder.Entity("Identity.Infrastructure.Persistence.Entities.OperatorLocation", b =>
+                {
+                    b.HasOne("Identity.Infrastructure.Persistence.Entities.Operator", "operators")
+                        .WithMany("operator_locations")
+                        .HasForeignKey("operator_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("operators");
+                });
+
             modelBuilder.Entity("Identity.Infrastructure.Persistence.Entities.WeakPassword", b =>
                 {
                     b.HasOne("Identity.Infrastructure.Persistence.Entities.PasswordRule", "password_rule")
@@ -852,6 +1225,11 @@ namespace Identity.Infrastructure.Migrations
                     b.Navigation("Application");
 
                     b.Navigation("Authorization");
+                });
+
+            modelBuilder.Entity("Identity.Infrastructure.Persistence.Entities.Operator", b =>
+                {
+                    b.Navigation("operator_locations");
                 });
 
             modelBuilder.Entity("Identity.Infrastructure.Persistence.Entities.PasswordRule", b =>

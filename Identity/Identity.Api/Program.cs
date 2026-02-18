@@ -1,10 +1,12 @@
 ﻿
 using Identity.Api.Exceptions;
 using Identity.Api.Logging;
+using Identity.Application.Interfaces;
 using Identity.Application.Services;
 using Identity.Application.Settings;
 using Identity.Domain.Entities;
-using Identity.Domain.Interfaces;
+using Identity.Infrastructure.MessageBroker;
+using Identity.Infrastructure.Messaging;
 using Identity.Infrastructure.Persistence;
 using Identity.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -42,6 +44,16 @@ public class Program
                .Bind(builder.Configuration.GetSection("JwtSetting"))
                .ValidateOnStart();
 
+        builder.Services
+               .AddOptions<HttpSetting>()
+               .Bind(builder.Configuration.GetSection("HttpSetting"))
+               .ValidateOnStart();
+
+        builder.Services
+               .AddOptions<RabbitMqSetting>()
+               .Bind(builder.Configuration.GetSection("RabbitMq"))
+               .ValidateOnStart();
+
         // ==========================
         // Cache service setting
         // ==========================
@@ -50,6 +62,12 @@ public class Program
             var configuration = builder.Configuration.GetSection("Redis")["ConnectionString"] ?? "localhost:6379";
             return ConnectionMultiplexer.Connect(configuration);
         });
+
+        // ==========================
+        // RabbitMQ DI service setting
+        // ==========================
+        builder.Services.AddSingleton<IRabbitMqPersistentConnection, RabbitMqPersistentConnection>();
+        builder.Services.AddScoped<IMessagePublisher, RabbitMqPublisher>();
 
 
 
@@ -272,16 +290,22 @@ public class Program
         // Adding App Dependency Injection
         // ==========================
         // DI
-        builder.Services.AddScoped<IOperatorRepository,OperatorRepository>();
-        builder.Services.AddScoped<IRoleRepository,RoleRepository>();
-        builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+        builder.Services.AddHttpClient();
+        builder.Services.AddScoped<ICache, CacheRepository>();
+        builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
         // DI Service
         builder.Services.AddScoped<IAuth, AuthService>();
+        builder.Services.AddScoped<IRole,RoleService>();
+        builder.Services.AddScoped<IOperator,OperatorService>();
 
         // DI Repository
-        builder.Services.AddScoped<ICache, CacheRepository>();
-        builder.Services.AddTransient<ExceptionHandlingMiddleware>();
+        builder.Services.AddScoped<IRoleRepository,RoleRepository>();
+        builder.Services.AddScoped<IOperatorRepository,OperatorRepository>();
+        builder.Services.AddScoped<IOperatorRepository, OperatorRepository>();
+        builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+        builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+        builder.Services.AddScoped<IHttpRepository, HttpRepository>();
 
         var app = builder.Build();
 

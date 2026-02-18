@@ -22,7 +22,17 @@ namespace Identity.Infrastructure.Mappers
                 middlename = data.MiddleName,
                 lastname = data.LastName,
                 phone = data.Phone,
-                image = data.Image
+                image = data.Image,
+                role_id = data.RoleId,
+                operator_locations = data.LocationIds.Select(x => new Persistence.Entities.OperatorLocation
+                {
+                    location_id = x,
+                    created_date = DateTime.UtcNow,
+                    updated_date = DateTime.UtcNow
+                }).ToArray(),
+                updated_date = DateTime.UtcNow,
+                created_date = DateTime.UtcNow,
+                is_active = true
 
             };
         }

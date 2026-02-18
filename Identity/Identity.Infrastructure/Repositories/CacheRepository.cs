@@ -1,4 +1,4 @@
-﻿using Identity.Domain.Interfaces;
+﻿using Identity.Application.Interfaces;
 using Microsoft.Extensions.Configuration;
 using StackExchange.Redis;
 using System;

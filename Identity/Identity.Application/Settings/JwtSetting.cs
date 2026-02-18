@@ -1,4 +1,4 @@
-﻿using Identity.Domain.Interfaces;
+﻿using Identity.Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

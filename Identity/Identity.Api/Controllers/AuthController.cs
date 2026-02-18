@@ -1,6 +1,6 @@
 ﻿using Identity.Application.DTOs;
 using Identity.Domain.Entities;
-using Identity.Domain.Interfaces;
+using Identity.Application.Interfaces;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -9,6 +9,7 @@ using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;
 using System.Security.Claims;
 using System.Text.Json;
+using Identity.Application.Entities;
 
 namespace Identity.Api.Controllers
 {
@@ -19,9 +20,9 @@ namespace Identity.Api.Controllers
         private readonly TimeSpan _cookieExpiry = TimeSpan.FromHours(3);
 
         [HttpPost("login")]
-        public async Task<ActionResult<TokenDto>> Login([FromForm] Login model)
+        public async Task<ActionResult<TokenDto>> Login([FromForm] LoginDto login)
         {
-            var res = await service.LoginAsync(model, Request.HttpContext.Connection.RemoteIpAddress is null ? "" : Request.HttpContext.Connection.RemoteIpAddress.ToString());
+            var res = await service.LoginAsync(login, Request.HttpContext.Connection.RemoteIpAddress is null ? "" : Request.HttpContext.Connection.RemoteIpAddress.ToString());
             // set HttpOnly cookies (path limited to auth endpoint)
             if (res.Data is not null)
             {
@@ -171,12 +172,7 @@ namespace Identity.Api.Controllers
             var locJson = User.FindFirst("location")?.Value ?? "";
             var loc = string.IsNullOrEmpty(locJson) ? [] : JsonSerializer.Deserialize<List<short>>(locJson);
             var roleJson = User.FindFirst("rol")?.Value ?? "";
-            var rol = string.IsNullOrEmpty(roleJson) ? new Role
-            {
-                Features = [],
-                Name = "",
-                Id = 0
-            } : JsonSerializer.Deserialize<Role>(roleJson);
+            var rol = string.IsNullOrEmpty(roleJson) ? new RoleDto(0, "", []): JsonSerializer.Deserialize<RoleDto>(roleJson);
 
             var info = new TokenInfo
             {

@@ -1,8 +1,8 @@
 ﻿using Identity.Application.DTOs;
 using Identity.Application.Settings;
 using Identity.Domain.Entities;
-using Identity.Domain.Helpers;
-using Identity.Domain.Interfaces;
+using Identity.Application.Helpers;
+using Identity.Application.Interfaces;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Data;
@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using Identity.Application.Entities;
 
 namespace Identity.Application.Services
 {
@@ -34,7 +35,7 @@ namespace Identity.Application.Services
             return EncryptHelper.VerifyPassword(Password, StoreHashed);
         }
 
-        public async Task<Response<Token>> LoginAsync(Login model, string ip)
+        public async Task<Response<Token>> LoginAsync(LoginDto model, string ip)
         {
 
             var user = await oper.GetByUsernameAsync(model.Username);
@@ -42,7 +43,7 @@ namespace Identity.Application.Services
 
             if (user is null) return ResponseHelper.NotFoundBuilder<Token>(["User not found."]);
 
-            var role = await rol.GetByIdAsync((short)user.Role.Id);
+            var role = await rol.GetByIdAsync((short)user.role.Id);
 
 
 
@@ -84,7 +85,7 @@ namespace Identity.Application.Services
             }
 
             var user = await oper.GetByUsernameAsync(rec.Username);
-            var role = await rol.GetByIdAsync(user.Role.Id);
+            var role = await rol.GetByIdAsync(user.role.Id);
 
             if (user is null) return ResponseHelper.NotFoundBuilder<Token>(["User not found."]);
 
@@ -128,7 +129,7 @@ namespace Identity.Application.Services
         }
 
 
-        public string CreateAccessToken(Operator user, Role role)
+        public string CreateAccessToken(OperatorDto user, RoleDto role)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secret));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -136,16 +137,16 @@ namespace Identity.Application.Services
             var users = new
             {
                 Title = user.Title ?? "",
-                Firstname = user.FirstName ?? "",
-                Middlename = user.MiddleName ?? "",
-                Lastname = user.LastName ?? "",
+                Firstname = user.Firstname ?? "",
+                Middlename = user.Middlename ?? "",
+                Lastname = user.Lastname ?? "",
                 Email = user.Email ?? "",
             };
-            var locations = user.LocationId;
+            var locations = user.LocationIds;
             var roles = new
             {
-                RoleNo = role.Id,
-                RoleName = role.Name,
+                Id = role.Id,
+                Name = role.Name,
                 Features = role.Features.Select(x => x.Id).ToList()
             };
 

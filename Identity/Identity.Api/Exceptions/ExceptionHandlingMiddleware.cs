@@ -1,4 +1,5 @@
-﻿using Identity.Domain.Constants;
+﻿using Identity.Application.Entities;
+using Identity.Domain.Constants;
 using Identity.Domain.Entities;
 using System.Net;
 using System.Text.Json;
@@ -33,9 +34,9 @@ namespace Identity.Api.Exceptions
             return context.Response.WriteAsync(JsonSerializer.Serialize(new Response<object>()
             {
                 Timestamp = DateTime.UtcNow,
-                Code = ex is TimeoutException ? HttpStatusCode.RequestTimeout : HttpStatusCode.InternalServerError,
+                Code = ex is TimeoutException ? HttpStatusCode.RequestTimeout : ex is ArgumentException ? HttpStatusCode.BadRequest : HttpStatusCode.InternalServerError,
                 Data = null,
-                Message = ex is TimeoutException ? ResponseMessage.REQUEST_TIMEOUT : ResponseMessage.INTERNAL_ERROR,
+                Message = ex is TimeoutException ? ResponseMessage.REQUEST_TIMEOUT : ex is ArgumentException ? ResponseMessage.BAD_REQUEST : ResponseMessage.INTERNAL_ERROR,
                 Details = errors
             }));
         }

@@ -1,5 +1,5 @@
 ﻿using Identity.Domain.Entities;
-using Identity.Domain.Interfaces;
+using Identity.Application.Interfaces;
 using Identity.Infrastructure.Mappers;
 using Identity.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Identity.Application.DTOs;
+using Identity.Application.Entities;
 
 namespace Identity.Infrastructure.Repositories
 {
@@ -34,184 +36,241 @@ namespace Identity.Infrastructure.Repositories
             return await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Operator>> GetAsync()
+        public async Task<IEnumerable<OperatorDto>> GetAsync()
         {
-            var res = await context.operators
+            var opers = await context.operators
                 .AsNoTracking()
-                 .Select(x => new Operator
+                 .Select(x => new 
                  {
                      Id = x.id,
                      UserId = x.userid,
                      Username = x.username,
                      Email = x.email,
                      Title = x.title,
-                     FirstName = x.firstname,
-                     MiddleName = x.middlename,
-                     LastName = x.lastname,
+                     Firstname = x.firstname,
+                     Middlename = x.middlename,
+                     Lastname = x.lastname,
                      Phone = x.phone,
                      Image = x.image,
-                     LocationId = x.location_id,
+                     LocationIds = x.operator_locations.Select(x => x.location_id),
                      IsActive = x.is_active,
-                     Role = new Role
-                     {
-                         Id = x.role.id,
-                         Name = x.role.name,
-                         Features = x.role.features
-                        .Select(x => new Feature
-                        {
-                            Id = x.id,
-                            Name = x.name,
-                            Path = x.path,
-                            IsAllow = x.is_allow,
-                            IsCreate = x.is_create,
-                            IsModify = x.is_modify,
-                            IsDelete = x.is_delete,
-                            IsAction = x.is_active
-
-                        }).ToList()
-                     }
+                     Role = new RoleDto
+                     (
+                         x.role.id,
+                         x.role.name,
+                         x.role.features
+                        .Select(x => new FeatureDto
+                        (
+                            x.id,
+                           x.name,
+                           x.path,
+                           x.is_allow,
+                           x.is_create,
+                           x.is_modify,
+                            x.is_delete,
+                            x.is_active
+                        ))
+                     )
 
                  })
                 .ToArrayAsync();
 
-            return res;
+            return opers.Select(x => new OperatorDto(
+                x.Id,
+                x.UserId,
+                x.Username,
+                x.Email,
+                x.Title,
+                x.Firstname,
+                x.Middlename,
+                x.Lastname,
+                x.Phone,
+                x.Image,
+                x.LocationIds.ToList(),
+                x.IsActive,
+                x.Role
+                ));
         }
 
-        public async Task<Operator> GetByIdAsync(int id)
+        public async Task<OperatorDto> GetByIdAsync(int id)
         {
             var res = await context.operators
                 .AsNoTracking()
                 .Where(x => x.id == id)
                 .OrderBy(x => x.id)
-                .Select(x => new Operator
-                {
-                    Id = x.id,
-                    UserId = x.userid,
-                    Username = x.username,
-                    Email = x.email,
-                    Title = x.title,
-                    FirstName = x.firstname,
-                    MiddleName = x.middlename,
-                    LastName = x.lastname,
-                    Phone = x.phone,
-                    Image = x.image,
-                    LocationId = x.location_id,
-                    IsActive = x.is_active,
-                    Role = new Role
-                    {
-                        Id = x.role.id,
-                        Name = x.role.name,
-                        Features = x.role.features
-                        .Select(x => new Feature
-                        {
-                            Id = x.id,
-                            Name = x.name,
-                            Path = x.path,
-                            IsAllow = x.is_allow,
-                            IsCreate = x.is_create,
-                            IsModify = x.is_modify,
-                            IsDelete = x.is_delete,
-                            IsAction = x.is_active
-
-                        }).ToList()
-                    }
-
-                })
-                .FirstOrDefaultAsync();
-
-            return res;
-        }
-
-        public async Task<IEnumerable<Operator>> GetByLocationIdAsync(int locationId)
-        {
-            var res = await context.operators
-                .AsNoTracking()
-                .Where(x => x.location_id == locationId)
-                 .Select(x => new Operator
+                 .Select(x => new
                  {
                      Id = x.id,
                      UserId = x.userid,
                      Username = x.username,
                      Email = x.email,
                      Title = x.title,
-                     FirstName = x.firstname,
-                     MiddleName = x.middlename,
-                     LastName = x.lastname,
+                     Firstname = x.firstname,
+                     Middlename = x.middlename,
+                     Lastname = x.lastname,
                      Phone = x.phone,
                      Image = x.image,
-                     LocationId = x.location_id,
+                     LocationIds = x.operator_locations.Select(x => x.location_id),
                      IsActive = x.is_active,
-                     Role = new Role
-                     {
-                         Id = x.role.id,
-                         Name = x.role.name,
-                         Features = x.role.features
-                        .Select(x => new Feature
-                        {
-                            Id = x.id,
-                            Name = x.name,
-                            Path = x.path,
-                            IsAllow = x.is_allow,
-                            IsCreate = x.is_create,
-                            IsModify = x.is_modify,
-                            IsDelete = x.is_delete,
-                            IsAction = x.is_active
-
-                        }).ToList()
-                     }
+                     Role = new RoleDto
+                     (
+                         x.role.id,
+                         x.role.name,
+                         x.role.features
+                        .Select(x => new FeatureDto
+                        (
+                            x.id,
+                           x.name,
+                           x.path,
+                           x.is_allow,
+                           x.is_create,
+                           x.is_modify,
+                            x.is_delete,
+                            x.is_active
+                        ))
+                     )
 
                  })
-                .ToArrayAsync();
+                .FirstOrDefaultAsync();
 
-            return res;
+            if (res is null) return null;
+
+
+            return new OperatorDto(
+                res.Id,
+                res.UserId,
+                res.Username,
+                res.Email,
+                res.Title,
+                res.Firstname,
+                res.Middlename,
+                res.Lastname,
+                res.Phone,
+                res.Image,
+                res.LocationIds.ToList(),
+                res.IsActive,
+                res.Role
+             );
         }
 
-        public async Task<Operator> GetByUsernameAsync(string Username)
+        public async Task<IEnumerable<OperatorDto>> GetByLocationIdAsync(int locationId)
+        {
+            var opers = await context.operators
+                .AsNoTracking()
+                .Where(x => x.operator_locations.Any(x => x.location_id == locationId))
+                  .Select(x => new
+                  {
+                      Id = x.id,
+                      UserId = x.userid,
+                      Username = x.username,
+                      Email = x.email,
+                      Title = x.title,
+                      Firstname = x.firstname,
+                      Middlename = x.middlename,
+                      Lastname = x.lastname,
+                      Phone = x.phone,
+                      Image = x.image,
+                      LocationIds = x.operator_locations.Select(x => x.location_id),
+                      IsActive = x.is_active,
+                      Role = new RoleDto
+                     (
+                         x.role.id,
+                         x.role.name,
+                         x.role.features
+                        .Select(x => new FeatureDto
+                        (
+                            x.id,
+                           x.name,
+                           x.path,
+                           x.is_allow,
+                           x.is_create,
+                           x.is_modify,
+                            x.is_delete,
+                            x.is_active
+                        ))
+                     )
+
+                  })
+                .ToArrayAsync();
+
+            return opers.Select(x => new OperatorDto(
+                x.Id,
+                x.UserId,
+                x.Username,
+                x.Email,
+                x.Title,
+                x.Firstname,
+                x.Middlename,
+                x.Lastname,
+                x.Phone,
+                x.Image,
+                x.LocationIds.ToList(),
+                x.IsActive,
+                x.Role
+                ));
+        }
+
+        public async Task<OperatorDto> GetByUsernameAsync(string Username)
         {
             var res = await context.operators
                 .AsNoTracking()
                 .Where(x => x.username.Equals(Username))
                 .OrderBy(x => x.id)
-                .Select(x => new Operator 
+                .Select(x => new
                 {
                     Id = x.id,
                     UserId = x.userid,
                     Username = x.username,
                     Email = x.email,
                     Title = x.title,
-                    FirstName = x.firstname,
-                    MiddleName = x.middlename,
-                    LastName = x.lastname,
+                    Firstname = x.firstname,
+                    Middlename = x.middlename,
+                    Lastname = x.lastname,
                     Phone = x.phone,
                     Image = x.image,
-                    LocationId = x.location_id,
+                    LocationIds = x.operator_locations.Select(x => x.location_id),
                     IsActive = x.is_active,
-                    Role = new Role 
-                    {
-                        Id = x.role.id,
-                        Name = x.role.name,
-                        Features = x.role.features
-                        .Select(x => new Feature 
-                        {
-                            Id = x.id,
-                            Name = x.name,
-                            Path = x.path,
-                            IsAllow = x.is_allow,
-                            IsCreate = x.is_create,
-                            IsModify = x.is_modify,
-                            IsDelete = x.is_delete,
-                            IsAction = x.is_active
+                    Role = new RoleDto
+                     (
+                         x.role.id,
+                         x.role.name,
+                         x.role.features
+                        .Select(x => new FeatureDto
+                        (
+                            x.id,
+                           x.name,
+                           x.path,
+                           x.is_allow,
+                           x.is_create,
+                           x.is_modify,
+                            x.is_delete,
+                            x.is_active
+                        ))
+                     )
 
-                        }).ToList()
-                    }
-                    
                 })
                 .FirstOrDefaultAsync();
 
-            return res;
+            if (res is null) return null;
+
+            return new OperatorDto(
+                res.Id,
+                res.UserId,
+                res.Username,
+                res.Email,
+                res.Title,
+                res.Firstname,
+                res.Middlename,
+                res.Lastname,
+                res.Phone,
+                res.Image,
+                res.LocationIds.ToList(),
+                res.IsActive,
+                res.Role
+             );
         }
 
-        public async Task<Pagination<Operator>> GetPaginationAsync(PaginationParam param, int location)
+        public async Task<Pagination<OperatorDto>> GetPaginationAsync(PaginationParam param, int location)
         {
             var query = context.operators.AsNoTracking().AsQueryable();
 
@@ -254,7 +313,7 @@ namespace Identity.Infrastructure.Repositories
                 }
             }
 
-            query = query.Where(x => x.location_id == location || x.location_id == 0);
+            query = query.Where(x => x.operator_locations.Any(x => x.location_id == location || x.location_id == 1));
 
             if (param.StartDate != null)
             {
@@ -275,46 +334,62 @@ namespace Identity.Infrastructure.Repositories
                 .AsNoTracking()
                 .OrderByDescending(t => t.created_date)
                 .Skip((param.PageNumber - 1) * param.PageSize)
-                 .Select(x => new Operator
+                 .Select(x => new
                  {
                      Id = x.id,
                      UserId = x.userid,
                      Username = x.username,
                      Email = x.email,
                      Title = x.title,
-                     FirstName = x.firstname,
-                     MiddleName = x.middlename,
-                     LastName = x.lastname,
+                     Firstname = x.firstname,
+                     Middlename = x.middlename,
+                     Lastname = x.lastname,
                      Phone = x.phone,
                      Image = x.image,
-                     LocationId = x.location_id,
+                     LocationIds = x.operator_locations.Select(x => x.location_id),
                      IsActive = x.is_active,
-                     Role = new Role
-                     {
-                         Id = x.role.id,
-                         Name = x.role.name,
-                         Features = x.role.features
-                        .Select(x => new Feature
-                        {
-                            Id = x.id,
-                            Name = x.name,
-                            Path = x.path,
-                            IsAllow = x.is_allow,
-                            IsCreate = x.is_create,
-                            IsModify = x.is_modify,
-                            IsDelete = x.is_delete,
-                            IsAction = x.is_active
-
-                        }).ToList()
-                     }
+                     Role = new RoleDto
+                     (
+                         x.role.id,
+                         x.role.name,
+                         x.role.features
+                        .Select(x => new FeatureDto
+                        (
+                            x.id,
+                           x.name,
+                           x.path,
+                           x.is_allow,
+                           x.is_create,
+                           x.is_modify,
+                            x.is_delete,
+                            x.is_active
+                        ))
+                     )
 
                  })
                 .ToListAsync();
 
 
-            return new Pagination<Operator>
+            var res = data.Select(x => new OperatorDto(
+                x.Id,
+                x.UserId,
+                x.Username,
+                x.Email,
+                x.Title,
+                x.Firstname,
+                x.Middlename,
+                x.Lastname,
+                x.Phone,
+                x.Image,
+                x.LocationIds.ToList(),
+                x.IsActive,
+                x.Role
+                ));
+
+
+            return new Pagination<OperatorDto>
             {
-                Data = data,
+                Data = res,
                 Page = new PaginationData
                 {
                     TotalCount = count,
@@ -343,7 +418,12 @@ namespace Identity.Infrastructure.Repositories
                 .AnyAsync(x => x.id == component);
         }
 
-        public async Task<int> UpdateAsync(Operator data)
+        public async Task<bool> IsAnyByUsernameAsync(string Username)
+        {
+            return await context.operators.AsNoTracking().AnyAsync(x => x.username.Equals(Username.Trim()));
+        }
+
+        public async Task<int> UpdateAsync(OperatorDto data)
         {
             var en = await context.operators
             .Where(x => x.username.Equals(data.Username))
@@ -351,6 +431,36 @@ namespace Identity.Infrastructure.Repositories
             .FirstOrDefaultAsync();
 
             if (en is null) return 0;
+
+            context.operators.Update(en);
+            return await context.SaveChangesAsync();
+        }
+
+        public async Task<int> UpdateAsync(Operator data)
+        {
+            var en = await context.operators
+            .Include(x => x.operator_locations)
+            .Where(x => x.username.Equals(data.Username))
+            .OrderBy(x => x.id)
+            .FirstOrDefaultAsync();
+
+            if (en is null) return 0;
+
+            context.operator_locations.RemoveRange(en.operator_locations);
+
+            context.operators.Update(en);
+            return await context.SaveChangesAsync();
+        }
+
+        public async Task<int> UpdatePasswordAsync(string username, string password)
+        {
+            var en = await context.operators
+            .Where(x => x.username.Equals(username))
+            .FirstOrDefaultAsync();
+
+            if (en is null) return 0;
+
+            en.password = password;
 
             context.operators.Update(en);
             return await context.SaveChangesAsync();
