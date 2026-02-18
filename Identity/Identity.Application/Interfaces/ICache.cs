@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Identity.Domain.Interfaces
+namespace Identity.Application.Interfaces
 {
-    public interface IRedisService
+    public interface ICache
     {
         Task SetAsync(string key, string value, TimeSpan expiry);
         Task<string?> GetAsync(string key);
