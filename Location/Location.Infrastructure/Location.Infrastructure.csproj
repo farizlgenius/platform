@@ -17,4 +17,10 @@
     <PackageReference Include="RabbitMQ.Client" Version="7.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Messaging.Contracts">
+      <HintPath>..\..\Messaging\Messaging.Contracts\bin\Debug\net8.0\Messaging.Contracts.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

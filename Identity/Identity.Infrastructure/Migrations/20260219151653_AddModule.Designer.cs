@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Identity.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260217145955_UpdateFeature")]
-    partial class UpdateFeature
+    [Migration("20260219151653_AddModule")]
+    partial class AddModule
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,11 +54,10 @@ namespace Identity.Infrastructure.Migrations
                     b.Property<bool>("is_modify")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("module_id")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("path")
+                    b.Property<string>("name")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -85,8 +84,8 @@ namespace Identity.Infrastructure.Migrations
                             is_create = true,
                             is_delete = true,
                             is_modify = true,
+                            module_id = 1,
                             name = "Dashboard",
-                            path = "/",
                             role_id = 1,
                             updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -100,8 +99,8 @@ namespace Identity.Infrastructure.Migrations
                             is_create = true,
                             is_delete = true,
                             is_modify = true,
+                            module_id = 1,
                             name = "Events",
-                            path = "/event",
                             role_id = 1,
                             updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -115,8 +114,8 @@ namespace Identity.Infrastructure.Migrations
                             is_create = true,
                             is_delete = true,
                             is_modify = true,
+                            module_id = 1,
                             name = "Location",
-                            path = "/location",
                             role_id = 1,
                             updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -130,8 +129,8 @@ namespace Identity.Infrastructure.Migrations
                             is_create = true,
                             is_delete = true,
                             is_modify = true,
+                            module_id = 1,
                             name = "Alerts",
-                            path = "/alert",
                             role_id = 1,
                             updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -145,8 +144,8 @@ namespace Identity.Infrastructure.Migrations
                             is_create = true,
                             is_delete = true,
                             is_modify = true,
+                            module_id = 1,
                             name = "Operator",
-                            path = "/operator",
                             role_id = 1,
                             updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -160,8 +159,8 @@ namespace Identity.Infrastructure.Migrations
                             is_create = true,
                             is_delete = true,
                             is_modify = true,
+                            module_id = 1,
                             name = "Role",
-                            path = "/role",
                             role_id = 1,
                             updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -175,8 +174,8 @@ namespace Identity.Infrastructure.Migrations
                             is_create = true,
                             is_delete = true,
                             is_modify = true,
+                            module_id = 1,
                             name = "Hardware",
-                            path = "/hardware",
                             role_id = 1,
                             updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -190,8 +189,8 @@ namespace Identity.Infrastructure.Migrations
                             is_create = true,
                             is_delete = true,
                             is_modify = true,
+                            module_id = 1,
                             name = "Control Point",
-                            path = "/control",
                             role_id = 1,
                             updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -205,8 +204,8 @@ namespace Identity.Infrastructure.Migrations
                             is_create = true,
                             is_delete = true,
                             is_modify = true,
+                            module_id = 1,
                             name = "Monitor Point",
-                            path = "/monitor",
                             role_id = 1,
                             updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -220,8 +219,8 @@ namespace Identity.Infrastructure.Migrations
                             is_create = true,
                             is_delete = true,
                             is_modify = true,
+                            module_id = 1,
                             name = "Monitor Group",
-                            path = "/monitorgroup",
                             role_id = 1,
                             updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -235,8 +234,8 @@ namespace Identity.Infrastructure.Migrations
                             is_create = true,
                             is_delete = true,
                             is_modify = true,
+                            module_id = 1,
                             name = "Door",
-                            path = "/door",
                             role_id = 1,
                             updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -250,8 +249,8 @@ namespace Identity.Infrastructure.Migrations
                             is_create = true,
                             is_delete = true,
                             is_modify = true,
+                            module_id = 1,
                             name = "User",
-                            path = "/user",
                             role_id = 1,
                             updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -265,8 +264,8 @@ namespace Identity.Infrastructure.Migrations
                             is_create = true,
                             is_delete = true,
                             is_modify = true,
+                            module_id = 1,
                             name = "Access Level",
-                            path = "/level",
                             role_id = 1,
                             updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -280,8 +279,8 @@ namespace Identity.Infrastructure.Migrations
                             is_create = true,
                             is_delete = true,
                             is_modify = true,
+                            module_id = 1,
                             name = "Access Area",
-                            path = "/area",
                             role_id = 1,
                             updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -295,8 +294,8 @@ namespace Identity.Infrastructure.Migrations
                             is_create = true,
                             is_delete = true,
                             is_modify = true,
+                            module_id = 1,
                             name = "Timezone",
-                            path = "/timezone",
                             role_id = 1,
                             updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -310,8 +309,8 @@ namespace Identity.Infrastructure.Migrations
                             is_create = true,
                             is_delete = true,
                             is_modify = true,
+                            module_id = 1,
                             name = "Holiday",
-                            path = "/holiday",
                             role_id = 1,
                             updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -325,8 +324,8 @@ namespace Identity.Infrastructure.Migrations
                             is_create = true,
                             is_delete = true,
                             is_modify = true,
+                            module_id = 1,
                             name = "Interval",
-                            path = "/interval",
                             role_id = 1,
                             updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -340,8 +339,8 @@ namespace Identity.Infrastructure.Migrations
                             is_create = true,
                             is_delete = true,
                             is_modify = true,
+                            module_id = 1,
                             name = "Trigger",
-                            path = "/trigger",
                             role_id = 1,
                             updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -355,8 +354,8 @@ namespace Identity.Infrastructure.Migrations
                             is_create = true,
                             is_delete = true,
                             is_modify = true,
+                            module_id = 1,
                             name = "Procedure",
-                            path = "/procedure",
                             role_id = 1,
                             updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -370,8 +369,8 @@ namespace Identity.Infrastructure.Migrations
                             is_create = true,
                             is_delete = true,
                             is_modify = true,
+                            module_id = 1,
                             name = "Reports",
-                            path = "/report",
                             role_id = 1,
                             updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -385,8 +384,8 @@ namespace Identity.Infrastructure.Migrations
                             is_create = true,
                             is_delete = true,
                             is_modify = true,
+                            module_id = 1,
                             name = "Settings",
-                            path = "/setting",
                             role_id = 1,
                             updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -400,8 +399,8 @@ namespace Identity.Infrastructure.Migrations
                             is_create = true,
                             is_delete = true,
                             is_modify = true,
+                            module_id = 1,
                             name = "Maps",
-                            path = "/map",
                             role_id = 1,
                             updated_date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
@@ -424,11 +423,10 @@ namespace Identity.Infrastructure.Migrations
                     b.Property<long>("location_id")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("master_module_id")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("path")
+                    b.Property<string>("name")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -437,228 +435,285 @@ namespace Identity.Infrastructure.Migrations
 
                     b.HasKey("id");
 
+                    b.HasIndex("master_module_id");
+
                     b.ToTable("master_features");
 
                     b.HasData(
                         new
                         {
                             id = 1,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3254),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2678),
                             is_active = true,
                             location_id = 0L,
+                            master_module_id = 1,
                             name = "Dashboard",
-                            path = "/",
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3256)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2680)
                         },
                         new
                         {
                             id = 2,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3259),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2686),
                             is_active = true,
                             location_id = 0L,
+                            master_module_id = 1,
                             name = "Events",
-                            path = "/event",
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3259)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2687)
                         },
                         new
                         {
                             id = 3,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3260),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2690),
                             is_active = true,
                             location_id = 0L,
+                            master_module_id = 1,
                             name = "Location",
-                            path = "/location",
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3260)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2691)
                         },
                         new
                         {
                             id = 4,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3261),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2694),
                             is_active = true,
                             location_id = 0L,
+                            master_module_id = 1,
                             name = "Alerts",
-                            path = "/alert",
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3261)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2695)
                         },
                         new
                         {
                             id = 5,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3262),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2698),
                             is_active = true,
                             location_id = 0L,
+                            master_module_id = 1,
                             name = "Operator",
-                            path = "/operator",
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3262)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2699)
                         },
                         new
                         {
                             id = 6,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3263),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2702),
                             is_active = true,
                             location_id = 0L,
+                            master_module_id = 1,
                             name = "Role",
-                            path = "/role",
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3263)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2703)
                         },
                         new
                         {
                             id = 7,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3264),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2706),
                             is_active = true,
                             location_id = 0L,
+                            master_module_id = 1,
                             name = "Hardware",
-                            path = "/hardware",
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3264)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2706)
                         },
                         new
                         {
                             id = 8,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3265),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2709),
                             is_active = true,
                             location_id = 0L,
+                            master_module_id = 1,
                             name = "Control Point",
-                            path = "/control",
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3265)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2710)
                         },
                         new
                         {
                             id = 9,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3266),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2713),
                             is_active = true,
                             location_id = 0L,
+                            master_module_id = 1,
                             name = "Monitor Point",
-                            path = "/monitor",
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3266)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2714)
                         },
                         new
                         {
                             id = 10,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3267),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2717),
                             is_active = true,
                             location_id = 0L,
+                            master_module_id = 1,
                             name = "Monitor Group",
-                            path = "/monitorgroup",
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3267)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2717)
                         },
                         new
                         {
                             id = 11,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3268),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2720),
                             is_active = true,
                             location_id = 0L,
+                            master_module_id = 1,
                             name = "Door",
-                            path = "/door",
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3268)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2721)
                         },
                         new
                         {
                             id = 12,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3269),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2723),
                             is_active = true,
                             location_id = 0L,
+                            master_module_id = 1,
                             name = "User",
-                            path = "/user",
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3269)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2724)
                         },
                         new
                         {
                             id = 13,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3270),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2727),
                             is_active = true,
                             location_id = 0L,
+                            master_module_id = 1,
                             name = "Access Level",
-                            path = "/level",
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3270)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2727)
                         },
                         new
                         {
                             id = 14,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3270),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2730),
                             is_active = true,
                             location_id = 0L,
+                            master_module_id = 1,
                             name = "Access Area",
-                            path = "/area",
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3271)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2731)
                         },
                         new
                         {
                             id = 15,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3271),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2733),
                             is_active = true,
                             location_id = 0L,
+                            master_module_id = 1,
                             name = "Timezone",
-                            path = "/timezone",
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3272)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2734)
                         },
                         new
                         {
                             id = 16,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3272),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2737),
                             is_active = true,
                             location_id = 0L,
+                            master_module_id = 1,
                             name = "Holiday",
-                            path = "/holiday",
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3272)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2737)
                         },
                         new
                         {
                             id = 17,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3273),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2740),
                             is_active = true,
                             location_id = 0L,
+                            master_module_id = 1,
                             name = "Interval",
-                            path = "/interval",
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3273)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2741)
                         },
                         new
                         {
                             id = 18,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3274),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2743),
                             is_active = true,
                             location_id = 0L,
+                            master_module_id = 1,
                             name = "Trigger",
-                            path = "/trigger",
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3274)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2744)
                         },
                         new
                         {
                             id = 19,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3275),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2747),
                             is_active = true,
                             location_id = 0L,
+                            master_module_id = 1,
                             name = "Procedure",
-                            path = "/procedure",
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3275)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2748)
                         },
                         new
                         {
                             id = 20,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3276),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2750),
                             is_active = true,
                             location_id = 0L,
+                            master_module_id = 1,
                             name = "Reports",
-                            path = "/report",
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3276)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2751)
                         },
                         new
                         {
                             id = 21,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3277),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2753),
                             is_active = true,
                             location_id = 0L,
+                            master_module_id = 1,
                             name = "Settings",
-                            path = "/setting",
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3277)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2754)
                         },
                         new
                         {
                             id = 22,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3278),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2757),
                             is_active = true,
                             location_id = 0L,
+                            master_module_id = 1,
                             name = "Maps",
-                            path = "/map",
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(3278)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2757)
+                        });
+                });
+
+            modelBuilder.Entity("Identity.Infrastructure.Persistence.Entities.MasterModule", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<DateTime>("created_date")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("desciption")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("is_active")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("location_id")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("updated_date")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("id");
+
+                    b.ToTable("MasterModule");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2296),
+                            desciption = "",
+                            is_active = true,
+                            location_id = 0L,
+                            name = "Access Control System",
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2303)
+                        },
+                        new
+                        {
+                            id = 2,
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2309),
+                            desciption = "",
+                            is_active = true,
+                            location_id = 0L,
+                            name = "Visitor Management System",
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2310)
                         });
                 });
 
@@ -779,10 +834,10 @@ namespace Identity.Infrastructure.Migrations
                         new
                         {
                             id = 1,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(5269),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(8764),
                             location_id = 1,
                             operator_id = 1,
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(5269)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(8770)
                         });
                 });
 
@@ -898,11 +953,11 @@ namespace Identity.Infrastructure.Migrations
                         new
                         {
                             id = 1,
-                            created_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(5287),
+                            created_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(8861),
                             is_active = true,
                             location_id = 1L,
                             name = "Administrator",
-                            updated_date = new DateTime(2026, 2, 17, 14, 59, 55, 616, DateTimeKind.Utc).AddTicks(5287)
+                            updated_date = new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(8863)
                         });
                 });
 
@@ -1173,6 +1228,17 @@ namespace Identity.Infrastructure.Migrations
                     b.Navigation("role");
                 });
 
+            modelBuilder.Entity("Identity.Infrastructure.Persistence.Entities.MasterFeature", b =>
+                {
+                    b.HasOne("Identity.Infrastructure.Persistence.Entities.MasterModule", "master_module")
+                        .WithMany("master_features")
+                        .HasForeignKey("master_module_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("master_module");
+                });
+
             modelBuilder.Entity("Identity.Infrastructure.Persistence.Entities.Operator", b =>
                 {
                     b.HasOne("Identity.Infrastructure.Persistence.Entities.Role", "role")
@@ -1228,6 +1294,11 @@ namespace Identity.Infrastructure.Migrations
                     b.Navigation("Application");
 
                     b.Navigation("Authorization");
+                });
+
+            modelBuilder.Entity("Identity.Infrastructure.Persistence.Entities.MasterModule", b =>
+                {
+                    b.Navigation("master_features");
                 });
 
             modelBuilder.Entity("Identity.Infrastructure.Persistence.Entities.Operator", b =>

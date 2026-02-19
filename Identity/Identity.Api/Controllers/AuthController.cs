@@ -37,7 +37,6 @@ namespace Identity.Api.Controllers
                 });
             }
 
-            Console.WriteLine(res.Data.AccessToken);
 
             return Ok(new TokenDto 
             {

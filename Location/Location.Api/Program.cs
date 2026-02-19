@@ -56,8 +56,10 @@ public class Program
         // ==========================
         builder.Services.AddScoped<ILocation,LocationService>();
         builder.Services.AddScoped<ILocationRepository,LocationRepository>();
-        builder.Services.AddSingleton<Workers>();
-        builder.Services.AddHostedService(provider => provider.GetRequiredService<Workers>());
+        builder.Services.AddSingleton<OperatorCreatedWorker>();
+        builder.Services.AddHostedService(provider => provider.GetRequiredService<OperatorCreatedWorker>());
+        builder.Services.AddSingleton<OperatorDeletedWorker>();
+        builder.Services.AddHostedService(provider => provider.GetRequiredService<OperatorDeletedWorker>());
 
         // SeriLog
         // Read Serilog config from appsettings.json

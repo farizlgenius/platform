@@ -21,5 +21,11 @@
     <ProjectReference Include="..\Identity.Domain\Identity.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Messaging.Contracts">
+      <HintPath>..\..\Messaging\Messaging.Contracts\bin\Debug\net8.0\Messaging.Contracts.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 
 </Project>

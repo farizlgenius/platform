@@ -63,7 +63,7 @@ namespace Identity.Infrastructure.Repositories
                         (
                             x.id,
                            x.name,
-                           x.path,
+                           x.module_id,
                            x.is_allow,
                            x.is_create,
                            x.is_modify,
@@ -121,7 +121,7 @@ namespace Identity.Infrastructure.Repositories
                         (
                             x.id,
                            x.name,
-                           x.path,
+                           x.module_id,
                            x.is_allow,
                            x.is_create,
                            x.is_modify,
@@ -181,7 +181,7 @@ namespace Identity.Infrastructure.Repositories
                         (
                             x.id,
                            x.name,
-                           x.path,
+                           x.module_id,
                            x.is_allow,
                            x.is_create,
                            x.is_modify,
@@ -239,7 +239,7 @@ namespace Identity.Infrastructure.Repositories
                         (
                             x.id,
                            x.name,
-                           x.path,
+                           x.module_id,
                            x.is_allow,
                            x.is_create,
                            x.is_modify,
@@ -357,7 +357,7 @@ namespace Identity.Infrastructure.Repositories
                         (
                             x.id,
                            x.name,
-                           x.path,
+                           x.module_id,
                            x.is_allow,
                            x.is_create,
                            x.is_modify,

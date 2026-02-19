@@ -8,6 +8,6 @@ namespace Identity.Application.Interfaces
 {
     public interface IMessagePublisher
     {
-        Task PublishAsync<T>(T message);
+        Task PublishAsync<T>(T message, string routeKey, CancellationToken ct=default);
     }
 }

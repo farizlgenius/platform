@@ -12,7 +12,7 @@ namespace Identity.Domain.Entities
     {
         public int Id { get; private set; }
         public string Name { get; private set; } = string.Empty;
-        public string Path { get; private set; } = string.Empty;
+        public int ModuleId { get; private set; }
         public bool IsAllow { get; private set; }
         public bool IsCreate { get; private set; }
         public bool IsModify { get; private set; }
@@ -21,10 +21,10 @@ namespace Identity.Domain.Entities
 
         public Feature() { }
 
-        public Feature(string name,string path,bool isAllow=false,bool isCreate=false,bool isModify=false,bool isDelete = false,bool isAction = false)
+        public Feature(string name,int moduleId,bool isAllow=false,bool isCreate=false,bool isModify=false,bool isDelete = false,bool isAction = false)
         {
             SetName(name);
-            Path = path;
+            ModuleId = moduleId;
             IsAllow = isAllow;
             IsCreate = isCreate;
             IsModify = isModify;
@@ -40,6 +40,13 @@ namespace Identity.Domain.Entities
 
             Name = name;
 
+        }
+
+        private void SetModuleId(int module)
+        {
+            if (module <= 0) throw new ArgumentException("Module must more than and not equal 0.",nameof(module));
+
+            ModuleId = module;
         }
 
         

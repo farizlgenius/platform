@@ -4,7 +4,7 @@ using Identity.Application.Helpers;
 using Identity.Application.Interfaces;
 using Identity.Domain.Constants;
 using Identity.Domain.Entities;
-using Identity.Domain.Events;
+using Messaging.Contracts.Events.Operator;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -37,18 +37,23 @@ namespace Identity.Application.Services
             // Trigger to adding location to operator
             var result = await repo.GetByUsernameAsync(dto.Username);
             var op = new OperatorCreatedEvent(result.Id, result.LocationIds);
-            await publisher.PublishAsync(op);
+            await publisher.PublishAsync(op, Messaging.Contracts.Messaging.RoutingKeys.OperatorCreated);
 
             return ResponseHelper.SuccessBuilder<OperatorDto>(result);
         }
 
         public async Task<Response<OperatorDto>> DeleteByIdAsync(int id)
         {
+            if (id == 1) return ResponseHelper.DefaultRecord<OperatorDto>();
             var en = await repo.GetByIdAsync(id);
             if (en is null) return ResponseHelper.NotFoundBuilder<OperatorDto>();
 
             var status = await repo.DeleteByIdAsync(id);
             if (status <= 0) return ResponseHelper.UnsuccessBuilder<OperatorDto>(ResponseMessage.DELETE_DATABASE_UNSUCCESS, []);
+
+            // Trigger
+            var op = new OperatorDeletedEvent(id);
+            await publisher.PublishAsync(op, Messaging.Contracts.Messaging.RoutingKeys.OperatorDeleted);
 
             return ResponseHelper.SuccessBuilder<OperatorDto>(en);
         }

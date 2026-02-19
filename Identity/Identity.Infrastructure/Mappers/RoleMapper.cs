@@ -17,7 +17,7 @@ namespace Identity.Infrastructure.Mappers
                 features = data.Features.Select(x => new Persistence.Entities.Feature 
                 {
                     name = x.Name,
-                    path = x.Path,
+                    module_id = x.ModuleId,
                     is_allow = x.IsAllow,
                     is_create = x.IsCreate,
                     is_modify = x.IsModify,
@@ -42,7 +42,7 @@ namespace Identity.Infrastructure.Mappers
             en.features = data.Features.Select(f => new Persistence.Entities.Feature 
             {
                 name = f.Name,
-                path = f.Path,
+               module_id = f.ModuleId,
                 role_id = data.Id,
                 is_allow = f.IsAllow,
                 is_create = f.IsCreate,

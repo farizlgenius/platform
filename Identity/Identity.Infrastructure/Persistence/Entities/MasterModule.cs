@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Identity.Infrastructure.Persistence.Entities
 {
-    public sealed class MasterFeature : BaseEntity
+    public sealed class MasterModule : BaseEntity
     {
         public string name { get; set; } = string.Empty;
-        public int master_module_id { get; set; }
-        public MasterModule master_module { get; set; }
-        
+        public string desciption { get; set; } = string.Empty;
+        public ICollection<MasterFeature> master_features { get; set; }
+
     }
 }

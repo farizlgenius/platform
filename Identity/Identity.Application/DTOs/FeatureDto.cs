@@ -9,7 +9,7 @@ namespace Identity.Application.DTOs
     public record FeatureDto(
         int Id,
         string Name,
-        string Path,
+        int ModuleId,
         bool IsAllow,
         bool IsCreate,
         bool IsModify,

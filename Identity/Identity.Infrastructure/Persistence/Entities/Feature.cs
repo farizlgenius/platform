@@ -12,7 +12,7 @@ namespace Identity.Infrastructure.Persistence.Entities
         [Key]
         public int id { get; set; }
         public string name { get; set; } = string.Empty;
-        public string path { get; set; } = string.Empty;
+        public int module_id { get; set; }
         public int role_id { get; set; }
         public Role role {get; set;}
         public bool is_allow { get; set; }

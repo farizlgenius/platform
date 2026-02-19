@@ -22,7 +22,7 @@ namespace Identity.Application.Services
             var features = new List<Feature>();
             foreach (var f in dto.Features) 
             {
-                features.Add(new Feature(f.Name,f.Path,f.IsAllow,f.IsCreate,f.IsModify,f.IsDelete,f.IsAction));
+                features.Add(new Feature(f.Name,f.ModuleId,f.IsAllow,f.IsCreate,f.IsModify,f.IsDelete,f.IsAction));
             }
             var role = new Role(dto.Name,features,dto.Location);
 

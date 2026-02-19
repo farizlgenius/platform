@@ -9,19 +9,19 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Identity.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialDatabase : Migration
+    public partial class AddModule : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "master_features",
+                name: "MasterModule",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name = table.Column<string>(type: "text", nullable: false),
-                    path = table.Column<string>(type: "text", nullable: false),
+                    desciption = table.Column<string>(type: "text", nullable: false),
                     location_id = table.Column<long>(type: "bigint", nullable: false),
                     is_active = table.Column<bool>(type: "boolean", nullable: false),
                     created_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -29,7 +29,7 @@ namespace Identity.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_master_features", x => x.id);
+                    table.PrimaryKey("PK_MasterModule", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -132,6 +132,30 @@ namespace Identity.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "master_features",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "text", nullable: false),
+                    master_module_id = table.Column<int>(type: "integer", nullable: false),
+                    location_id = table.Column<long>(type: "bigint", nullable: false),
+                    is_active = table.Column<bool>(type: "boolean", nullable: false),
+                    created_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    updated_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_master_features", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_master_features_MasterModule_master_module_id",
+                        column: x => x.master_module_id,
+                        principalTable: "MasterModule",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OpenIddictAuthorizations",
                 columns: table => new
                 {
@@ -182,14 +206,13 @@ namespace Identity.Infrastructure.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name = table.Column<string>(type: "text", nullable: false),
-                    path = table.Column<string>(type: "text", nullable: false),
+                    module_id = table.Column<int>(type: "integer", nullable: false),
                     role_id = table.Column<int>(type: "integer", nullable: false),
                     is_allow = table.Column<bool>(type: "boolean", nullable: false),
                     is_create = table.Column<bool>(type: "boolean", nullable: false),
                     is_modify = table.Column<bool>(type: "boolean", nullable: false),
                     is_delete = table.Column<bool>(type: "boolean", nullable: false),
                     is_action = table.Column<bool>(type: "boolean", nullable: false),
-                    location_id = table.Column<long>(type: "bigint", nullable: false),
                     is_active = table.Column<bool>(type: "boolean", nullable: false),
                     created_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     updated_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -222,7 +245,6 @@ namespace Identity.Infrastructure.Migrations
                     phone = table.Column<string>(type: "text", nullable: false),
                     image = table.Column<string>(type: "text", nullable: false),
                     role_id = table.Column<int>(type: "integer", nullable: false),
-                    location_id = table.Column<long>(type: "bigint", nullable: false),
                     is_active = table.Column<bool>(type: "boolean", nullable: false),
                     created_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     updated_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -271,33 +293,35 @@ namespace Identity.Infrastructure.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "operator_locations",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    location_id = table.Column<int>(type: "integer", nullable: false),
+                    operator_id = table.Column<int>(type: "integer", nullable: false),
+                    created_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    updated_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_operator_locations", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_operator_locations_operators_operator_id",
+                        column: x => x.operator_id,
+                        principalTable: "operators",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
-                table: "master_features",
-                columns: new[] { "id", "created_date", "is_active", "location_id", "name", "path", "updated_date" },
+                table: "MasterModule",
+                columns: new[] { "id", "created_date", "desciption", "is_active", "location_id", "name", "updated_date" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9357), true, 0L, "Dashboard", "/", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9359) },
-                    { 2, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9362), true, 0L, "Events", "/event", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9362) },
-                    { 3, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9364), true, 0L, "Location", "/location", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9364) },
-                    { 4, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9364), true, 0L, "Alerts", "/alert", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9365) },
-                    { 5, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9365), true, 0L, "Operator", "/operator", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9366) },
-                    { 6, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9366), true, 0L, "Role", "/role", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9367) },
-                    { 7, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9367), true, 0L, "Hardware", "/hardware", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9367) },
-                    { 8, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9368), true, 0L, "Control Point", "/control", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9368) },
-                    { 9, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9369), true, 0L, "Monitor Point", "/monitor", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9369) },
-                    { 10, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9370), true, 0L, "Monitor Group", "/monitorgroup", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9370) },
-                    { 11, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9371), true, 0L, "Door", "/door", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9371) },
-                    { 12, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9372), true, 0L, "User", "/user", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9372) },
-                    { 13, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9373), true, 0L, "Access Level", "/level", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9373) },
-                    { 14, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9374), true, 0L, "Access Area", "/area", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9374) },
-                    { 15, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9375), true, 0L, "Timezone", "/timezone", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9375) },
-                    { 16, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9375), true, 0L, "Holiday", "/holiday", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9376) },
-                    { 17, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9376), true, 0L, "Interval", "/interval", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9377) },
-                    { 18, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9377), true, 0L, "Trigger", "/trigger", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9378) },
-                    { 19, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9379), true, 0L, "Procedure", "/procedure", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9379) },
-                    { 20, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9380), true, 0L, "Reports", "/report", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9380) },
-                    { 21, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9381), true, 0L, "Settings", "/setting", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9381) },
-                    { 22, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9382), true, 0L, "Maps", "/map", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9382) }
+                    { 1, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2296), "", true, 0L, "Access Control System", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2303) },
+                    { 2, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2309), "", true, 0L, "Visitor Management System", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2310) }
                 });
 
             migrationBuilder.InsertData(
@@ -308,12 +332,70 @@ namespace Identity.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "roles",
                 columns: new[] { "id", "created_date", "is_active", "location_id", "name", "updated_date" },
-                values: new object[] { 1, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9538), true, 0L, "Administrator", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9538) });
+                values: new object[] { 1, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(8861), true, 1L, "Administrator", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(8863) });
+
+            migrationBuilder.InsertData(
+                table: "features",
+                columns: new[] { "id", "created_date", "is_action", "is_active", "is_allow", "is_create", "is_delete", "is_modify", "module_id", "name", "role_id", "updated_date" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, true, true, true, true, 1, "Dashboard", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, true, true, true, true, 1, "Events", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, true, true, true, true, 1, "Location", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, true, true, true, true, 1, "Alerts", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, true, true, true, true, 1, "Operator", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, true, true, true, true, 1, "Role", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, true, true, true, true, 1, "Hardware", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 8, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, true, true, true, true, 1, "Control Point", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, true, true, true, true, 1, "Monitor Point", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 10, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, true, true, true, true, 1, "Monitor Group", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 11, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, true, true, true, true, 1, "Door", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 12, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, true, true, true, true, 1, "User", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 13, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, true, true, true, true, 1, "Access Level", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 14, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, true, true, true, true, 1, "Access Area", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 15, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, true, true, true, true, 1, "Timezone", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 16, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, true, true, true, true, 1, "Holiday", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 17, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, true, true, true, true, 1, "Interval", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 18, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, true, true, true, true, 1, "Trigger", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 19, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, true, true, true, true, 1, "Procedure", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 20, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, true, true, true, true, 1, "Reports", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 21, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, true, true, true, true, 1, "Settings", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 22, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, true, true, true, true, 1, "Maps", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "master_features",
+                columns: new[] { "id", "created_date", "is_active", "location_id", "master_module_id", "name", "updated_date" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2678), true, 0L, 1, "Dashboard", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2680) },
+                    { 2, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2686), true, 0L, 1, "Events", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2687) },
+                    { 3, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2690), true, 0L, 1, "Location", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2691) },
+                    { 4, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2694), true, 0L, 1, "Alerts", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2695) },
+                    { 5, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2698), true, 0L, 1, "Operator", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2699) },
+                    { 6, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2702), true, 0L, 1, "Role", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2703) },
+                    { 7, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2706), true, 0L, 1, "Hardware", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2706) },
+                    { 8, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2709), true, 0L, 1, "Control Point", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2710) },
+                    { 9, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2713), true, 0L, 1, "Monitor Point", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2714) },
+                    { 10, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2717), true, 0L, 1, "Monitor Group", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2717) },
+                    { 11, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2720), true, 0L, 1, "Door", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2721) },
+                    { 12, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2723), true, 0L, 1, "User", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2724) },
+                    { 13, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2727), true, 0L, 1, "Access Level", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2727) },
+                    { 14, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2730), true, 0L, 1, "Access Area", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2731) },
+                    { 15, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2733), true, 0L, 1, "Timezone", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2734) },
+                    { 16, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2737), true, 0L, 1, "Holiday", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2737) },
+                    { 17, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2740), true, 0L, 1, "Interval", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2741) },
+                    { 18, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2743), true, 0L, 1, "Trigger", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2744) },
+                    { 19, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2747), true, 0L, 1, "Procedure", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2748) },
+                    { 20, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2750), true, 0L, 1, "Reports", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2751) },
+                    { 21, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2753), true, 0L, 1, "Settings", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2754) },
+                    { 22, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2757), true, 0L, 1, "Maps", new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(2757) }
+                });
 
             migrationBuilder.InsertData(
                 table: "operators",
-                columns: new[] { "id", "created_date", "email", "firstname", "image", "is_active", "lastname", "location_id", "middlename", "password", "phone", "role_id", "title", "updated_date", "userid", "username" },
-                values: new object[] { 1, new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9496), "support@honorsupplying.com", "Administrator", "", true, "Platform", 0L, "", "2439iBIqejYGcodz6j0vGvyeI25eOrjMX3QtIhgVyo0M4YYmWbS+NmGwo0LLByUY", "", 1, "Mr.", new DateTime(2026, 2, 15, 7, 6, 26, 637, DateTimeKind.Utc).AddTicks(9496), "1", "admin" });
+                columns: new[] { "id", "created_date", "email", "firstname", "image", "is_active", "lastname", "middlename", "password", "phone", "role_id", "title", "updated_date", "userid", "username" },
+                values: new object[] { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "support@honorsupplying.com", "Administrator", "", true, "Platform", "", "2439iBIqejYGcodz6j0vGvyeI25eOrjMX3QtIhgVyo0M4YYmWbS+NmGwo0LLByUY", "", 1, "Mr.", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "1", "admin" });
 
             migrationBuilder.InsertData(
                 table: "weak_password",
@@ -326,10 +408,20 @@ namespace Identity.Infrastructure.Migrations
                     { 4, "123456", 1 }
                 });
 
+            migrationBuilder.InsertData(
+                table: "operator_locations",
+                columns: new[] { "id", "created_date", "location_id", "operator_id", "updated_date" },
+                values: new object[] { 1, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(8764), 1, 1, new DateTime(2026, 2, 19, 15, 16, 53, 99, DateTimeKind.Utc).AddTicks(8770) });
+
             migrationBuilder.CreateIndex(
                 name: "IX_features_role_id",
                 table: "features",
                 column: "role_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_master_features_master_module_id",
+                table: "master_features",
+                column: "master_module_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OpenIddictApplications_ClientId",
@@ -365,6 +457,11 @@ namespace Identity.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_operator_locations_operator_id",
+                table: "operator_locations",
+                column: "operator_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_operators_role_id",
                 table: "operators",
                 column: "role_id");
@@ -391,7 +488,7 @@ namespace Identity.Infrastructure.Migrations
                 name: "OpenIddictTokens");
 
             migrationBuilder.DropTable(
-                name: "operators");
+                name: "operator_locations");
 
             migrationBuilder.DropTable(
                 name: "refresh_token");
@@ -400,16 +497,22 @@ namespace Identity.Infrastructure.Migrations
                 name: "weak_password");
 
             migrationBuilder.DropTable(
+                name: "MasterModule");
+
+            migrationBuilder.DropTable(
                 name: "OpenIddictAuthorizations");
 
             migrationBuilder.DropTable(
-                name: "roles");
+                name: "operators");
 
             migrationBuilder.DropTable(
                 name: "password_rule");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictApplications");
+
+            migrationBuilder.DropTable(
+                name: "roles");
         }
     }
 }

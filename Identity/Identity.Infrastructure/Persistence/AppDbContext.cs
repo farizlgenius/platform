@@ -27,30 +27,42 @@ namespace Identity.Infrastructure.Persistence
             builder.UseOpenIddict();
 
 
+            builder.Entity<MasterModule>()
+                .HasMany(x => x.master_features)
+                .WithOne(x => x.master_module)
+                .HasForeignKey(x => x.master_module_id);
+
+            builder.Entity<MasterModule>()
+                .HasData(
+                new MasterModule { id=1,name="Access Control System" },
+                new MasterModule { id=2,name="Visitor Management System"}
+                );
+
+
             builder.Entity<MasterFeature>()
            .HasData(
-               new MasterFeature { id = 1,  name = "Dashboard", path = "/" },
-               new MasterFeature { id = 2, name = "Events", path = "/event" },
-               new MasterFeature { id = 3,  name = "Location", path = "/location" },
-               new MasterFeature { id = 4,  name = "Alerts", path = "/alert" },
-               new MasterFeature { id = 5,  name = "Operator",path="/operator" },
-               new MasterFeature { id = 6, name = "Role", path = "/role" },
-               new MasterFeature { id = 7,  name = "Hardware",path="/hardware" },
-               new MasterFeature { id = 8, name = "Control Point", path = "/control" },
-               new MasterFeature { id = 9, name = "Monitor Point", path = "/monitor" },
-               new MasterFeature { id = 10, name = "Monitor Group", path = "/monitorgroup" },
-               new MasterFeature { id = 11,  name = "Door", path = "/door" },
-               new MasterFeature { id = 12,  name = "User", path = "/user" },
-               new MasterFeature { id = 13,  name = "Access Level", path = "/level" },
-               new MasterFeature { id = 14,  name = "Access Area", path = "/area" },
-               new MasterFeature { id = 15,  name = "Timezone",path="/timezone" },
-               new MasterFeature { id = 16, name = "Holiday", path = "/holiday" },
-               new MasterFeature { id = 17, name = "Interval", path = "/interval" },
-               new MasterFeature { id = 18,  name = "Trigger",path="/trigger" },
-               new MasterFeature { id = 19, name = "Procedure", path = "/procedure" },
-               new MasterFeature { id = 20,  name = "Reports",path="/report" },
-               new MasterFeature { id = 21,  name = "Settings", path = "/setting" },
-               new MasterFeature { id = 22,  name = "Maps", path = "/map" }
+               new MasterFeature { id = 1,  name = "Dashboard",master_module_id=1},
+               new MasterFeature { id = 2, name = "Events",master_module_id=1 },
+               new MasterFeature { id = 3,  name = "Location", master_module_id = 1 },
+               new MasterFeature { id = 4,  name = "Alerts", master_module_id = 1 },
+               new MasterFeature { id = 5,  name = "Operator",master_module_id = 1 },
+               new MasterFeature { id = 6, name = "Role", master_module_id = 1 },
+               new MasterFeature { id = 7,  name = "Hardware",master_module_id = 1 },
+               new MasterFeature { id = 8, name = "Control Point", master_module_id = 1  },
+               new MasterFeature { id = 9, name = "Monitor Point", master_module_id = 1 },
+               new MasterFeature { id = 10, name = "Monitor Group", master_module_id = 1 },
+               new MasterFeature { id = 11,  name = "Door", master_module_id = 1 },
+               new MasterFeature { id = 12,  name = "User", master_module_id = 1 },
+               new MasterFeature { id = 13,  name = "Access Level", master_module_id = 1 },
+               new MasterFeature { id = 14,  name = "Access Area", master_module_id = 1 },
+               new MasterFeature { id = 15,  name = "Timezone",master_module_id = 1 },
+               new MasterFeature { id = 16, name = "Holiday", master_module_id = 1   },
+               new MasterFeature { id = 17, name = "Interval",master_module_id=1 },
+               new MasterFeature { id = 18,  name = "Trigger",master_module_id=1 },
+               new MasterFeature { id = 19, name = "Procedure", master_module_id = 1 },
+               new MasterFeature { id = 20,  name = "Reports",master_module_id = 1 },
+               new MasterFeature { id = 21,  name = "Settings", master_module_id = 1 },
+               new MasterFeature { id = 22,  name = "Maps", master_module_id = 1 }
 
            );
 
@@ -76,28 +88,28 @@ namespace Identity.Infrastructure.Persistence
 
             builder.Entity<Feature>()
                 .HasData(
-                new Feature { id=1,name="Dashboard",path="/",is_action=true,is_allow=true,is_active=true,is_create=true,is_delete=true,is_modify=true,role_id=1 },
-                new Feature { id = 2, name = "Events", path = "/event", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
-                new Feature { id = 3, name = "Location", path = "/location", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
-                new Feature { id = 4, name = "Alerts", path = "/alert", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
-                new Feature { id = 5, name = "Operator", path = "/operator", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
-                new Feature { id = 6, name = "Role", path = "/role", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
-                new Feature { id = 7, name = "Hardware", path = "/hardware", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
-                new Feature { id = 8, name = "Control Point", path = "/control", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
-                new Feature { id = 9, name = "Monitor Point", path = "/monitor", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
-                new Feature { id = 10, name = "Monitor Group", path = "/monitorgroup", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
-                new Feature { id = 11, name = "Door", path = "/door", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
-                new Feature { id = 12, name = "User", path = "/user", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
-                new Feature { id = 13, name = "Access Level", path = "/level", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
-                new Feature { id = 14, name = "Access Area", path = "/area", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
-                new Feature { id = 15, name = "Timezone", path = "/timezone", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
-                new Feature { id = 16, name = "Holiday", path = "/holiday", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
-                new Feature { id = 17, name = "Interval", path = "/interval", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
-                new Feature { id = 18, name = "Trigger", path = "/trigger", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
-                new Feature { id = 19, name = "Procedure", path = "/procedure", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
-                new Feature { id = 20, name = "Reports", path = "/report", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
-                new Feature { id = 21, name = "Settings", path = "/setting", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
-                new Feature { id = 22, name = "Maps", path = "/map", is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 }
+                new Feature { id=1,name="Dashboard",module_id=1,is_action=true,is_allow=true,is_active=true,is_create=true,is_delete=true,is_modify=true,role_id=1 },
+                new Feature { id = 2, name = "Events", module_id = 1, is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 3, name = "Location", module_id = 1, is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 4, name = "Alerts", module_id = 1, is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 5, name = "Operator", module_id = 1, is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 6, name = "Role", module_id = 1, is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 7, name = "Hardware", module_id = 1, is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 8, name = "Control Point", module_id = 1, is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 9, name = "Monitor Point", module_id = 1, is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 10, name = "Monitor Group", module_id = 1, is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 11, name = "Door", module_id = 1, is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 12, name = "User", module_id = 1, is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 13, name = "Access Level", module_id = 1, is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 14, name = "Access Area", module_id = 1, is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 15, name = "Timezone", module_id = 1, is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 16, name = "Holiday", module_id = 1, is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 17, name = "Interval", module_id = 1, is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 18, name = "Trigger", module_id = 1, is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 19, name = "Procedure", module_id = 1, is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 20, name = "Reports", module_id = 1, is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 21, name = "Settings", module_id = 1, is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 },
+                new Feature { id = 22, name = "Maps", module_id = 1, is_action = true, is_allow = true, is_active = true, is_create = true, is_delete = true, is_modify = true, role_id = 1 }
                 );
 
             builder.Entity<PasswordRule>()

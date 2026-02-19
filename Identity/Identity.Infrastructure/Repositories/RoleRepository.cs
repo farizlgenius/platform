@@ -42,7 +42,7 @@ namespace Identity.Infrastructure.Repositories
                    Features = r.features.Select(f => new FeatureDto(
                        f.id,
                        f.name,
-                       f.path,
+                       f.module_id,
                        f.is_allow,
                        f.is_create,
                        f.is_modify,
@@ -75,7 +75,7 @@ namespace Identity.Infrastructure.Repositories
                     Features = r.features.Select(f => new FeatureDto(
                         f.id,
                         f.name,
-                        f.path,
+                        f.module_id,
                         f.is_allow,
                         f.is_create,
                         f.is_modify,
@@ -107,7 +107,7 @@ namespace Identity.Infrastructure.Repositories
                    Features = r.features.Select(f => new FeatureDto(
                        f.id,
                        f.name,
-                       f.path,
+                       f.module_id,
                        f.is_allow,
                        f.is_create,
                        f.is_modify,
@@ -182,7 +182,7 @@ namespace Identity.Infrastructure.Repositories
                       Features = r.features.Select(f => new FeatureDto(
                           f.id,
                           f.name,
-                          f.path,
+                          f.module_id,
                           f.is_allow,
                           f.is_create,
                           f.is_modify,
@@ -262,7 +262,7 @@ namespace Identity.Infrastructure.Repositories
                     Features = r.features.Select(f => new FeatureDto(
                         f.id,
                         f.name,
-                        f.path,
+                        f.module_id,
                         f.is_allow,
                         f.is_create,
                         f.is_modify,
