@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Device.Api/Device.Api.csproj" />
+  <Project Path="Device.Application/Device.Application.csproj" />
+  <Project Path="Device.Domain/Device.Domain.csproj" />
+  <Project Path="Device.Infrastructure/Device.Infrastructure.csproj" Id="afd3bfec-3a17-4e48-9f2a-e37b89e5a525" />
+</Solution>
